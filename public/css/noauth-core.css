@@ -88,3 +88,51 @@ nav hr {
 	padding-left: 4px;
 	margin-top: 0px;
 }
+
+.tab-wrapper {
+	width: 100%;
+	text-align: center;
+	display: inline-block;
+	margin-top: 6px;
+}
+
+.tab:nth-child(1) {
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-left-style: solid;
+}
+
+.tab:nth-child(3) {
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-right-style: solid;
+}
+
+.tab {
+	border-color: #000;
+	border-width: 1px;
+	border-style: solid;
+	padding: 1px 12px;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.tab:hover {
+	background-color: #eee;
+}
+
+.tab-active {
+	background-color: #ddd;
+}
+
+.tab-block ul {
+	list-style: none;
+}
+
+.tab-block {
+	display: none;
+}
+
+.active {
+	display: block !important;
+}

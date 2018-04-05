@@ -35,6 +35,15 @@ window.addEventListener("load", function () {
 
 
 	$("#iframe-host").html('<iframe allowFullScreen="allowFullScreen" src="' + youtube + '?loop=1&autoplay=1&rel=0&showinfo=0&controls=0&autohide=1" width="560" height="315" allowtransparency="true" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" ></iframe>');
+	
+	
+	$(".tab").click(function() {
+		$(".tab").removeClass("tab-active");
+		$(this).addClass("tab-active");
+		var p = $(this).index();
+		$(".tab-block").removeClass("active");
+		$($(".tab-block-parent").children()[$(this).index()]).addClass("active");
+	});
 });
 
 function handlePlayerQueue(item) {
@@ -62,9 +71,7 @@ function setupWebsocket(url) {
 
 	ws.onmessage = function (ev) {
 		var data = JSON.parse(ev.data);
-		console.log(data);
 		if (data.kind === "queue") {
-			console.log("hello");
 			handlePlayerQueue(data.data);
 		}
 	};

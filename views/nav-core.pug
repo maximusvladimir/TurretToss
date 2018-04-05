@@ -8,9 +8,35 @@ nav
 		span(style='vertical-align: top;') Up Next:
 		ul#player-queue
 	div.box
-		h2 Leaderboard
+		h2 Leaderboards
 		hr
-		div TODO
+		div
+			span.tab-wrapper
+				span.tab.tab-active Daily
+				span.tab Monthly
+				span.tab All Time
+			div.tab-block-parent
+				div.tab-block.active
+					ul
+						each val in leaderboard.daily
+							li
+								span= val.place + ": "
+								span= val.name
+								span= " (" + val.points + " points)"
+				div.tab-block
+					ul
+						each val in leaderboard.monthly
+							li
+								span= val.place + ": "
+								span= val.name
+								span= " (" + val.points + " points)"
+				div.tab-block
+					ul
+						each val in leaderboard.allTime
+							li
+								span= val.place + ": "
+								span= val.name
+								span= " (" + val.points + " points)"
 	div.box
 		h2 Instructions
 		hr

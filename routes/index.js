@@ -4,10 +4,96 @@ var wslib = require('../websocket.js');
 var db = require('../database-dummy.js');
 
 router.get('/', function (req, res, next) {
+	// todo: replace this JSON object with reading from PostgreSQL.
+	var leaderboard = {
+		daily: [
+			{
+				place: 1,
+				name: 'turret_toss_pro',
+				points: 1078
+			},
+			{
+				place: 2,
+				name: 'Sally',
+				points: 645
+			},
+			{
+				place: 3,
+				name: 'Dog',
+				points: 579
+			},
+			{
+				place: 4,
+				name: 'user_6',
+				points: 398
+			},
+			{
+				place: 5,
+				name: 'xXhelloXx',
+				points: 145
+			},
+		],
+		monthly: [
+			{
+				place: 1,
+				name: 'turret_toss_pro',
+				points: 10780
+			},
+			{
+				place: 2,
+				name: 'Sally',
+				points: 6450
+			},
+			{
+				place: 3,
+				name: 'Dog',
+				points: 5790
+			},
+			{
+				place: 4,
+				name: 'user_6',
+				points: 3980
+			},
+			{
+				place: 5,
+				name: 'xXhelloXx',
+				points: 1450
+			},
+		],
+		allTime: [
+			{
+				place: 1,
+				name: 'turret_toss_pro',
+				points: 107800
+			},
+			{
+				place: 2,
+				name: 'Sally',
+				points: 64500
+			},
+			{
+				place: 3,
+				name: 'Dog',
+				points: 57900
+			},
+			{
+				place: 4,
+				name: 'user_6',
+				points: 39800
+			},
+			{
+				place: 5,
+				name: 'xXhelloXx',
+				points: 14500
+			},
+		]
+	};
+	
 	var defaultObject = {
 		path: '/',
 		wsinfo: global.websocketURL + ":" + global.websocketPort,
-		currentStreamUrl: 'https://www.youtube.com/embed/wZZ7oFKsKzY'
+		currentStreamUrl: 'https://www.youtube.com/embed/wZZ7oFKsKzY',
+		leaderboard: leaderboard
 	};
 
 	var authed = false;
@@ -63,6 +149,8 @@ wslib.setupWebsocket(function (ws) {
 					kind: "queue",
 					data: pick
 				}));
+				// TODO: replace!:
+				global.lastGoodWebSocket = ws;
 			} catch (e) {}
 		}
 	}, 1000);

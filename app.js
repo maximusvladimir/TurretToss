@@ -15,7 +15,9 @@ var cookie = require('cookie-parser');
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 
 app.use(cookie());
 
@@ -24,9 +26,11 @@ app.set('views', path.join(__dirname, 'views/'));
 app.set('view engine', 'pug');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', require('./routes/signin'));
 app.use('/', require('./routes/signup'));
+app.use('/', require('./routes/api'));
+app.use('/', require('./routes/signout'));
 app.use('/', index);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
