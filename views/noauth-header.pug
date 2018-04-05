@@ -1,0 +1,41 @@
+html
+	head
+		title Turret Toss - Home
+		script(src='../../js/noauth-core.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js')
+		link(rel='stylesheet', href='../../css/noauth-core.css')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Josefin+Sans')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto')
+		meta(name='data-websocket-url', content=wsinfo)
+		meta(name='data-youtube-url', content=currentStreamUrl)
+	body
+		header
+			span Turret Toss
+			span
+				// delegate to Amazon Cognito
+				a(href='#') Sign In
+			span
+				// delegate to Amazon Cognito.
+				a(href='#') Sign Up
+		nav
+			div.box
+				h2 Player Queue
+				hr
+				span Currently Playing: 
+				span#current-player
+				br
+				span(style='vertical-align: top;') Up Next:
+				ul#player-queue
+			div.box
+				h2 Leaderboard
+				hr
+				div TODO
+			div.box
+				h2 Instructions
+				hr
+				ol.roboto.instruction-list
+					li Use the arrow keys on the keyboard to adjust where the webcam is facing.
+					li Select the angle and speed the launcher will shoot at.
+					li Toss!
+		div.wrapper
+			block body

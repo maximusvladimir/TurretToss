@@ -1,0 +1,90 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	font-family: 'Josefin Sans', Myriad, Arial, sans-serif;
+	background-color: #000;
+}
+
+header {
+	display: inline-block;
+	width: 100%;
+	background-color: #444;
+	color: #fff;
+}
+
+header span {
+	float: right;
+	margin: 7px;
+}
+
+header span:nth-child(1) {
+	float: left;
+}
+
+header span a {
+	text-decoration: none;
+	color: #fff;
+}
+
+nav {
+	width: 300px;
+	top: 30px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	background-color: #fff;
+}
+
+.wrapper {
+	position: fixed;
+    top: 30px;
+    width: calc(100% - 400px);
+    left: 300px;
+    height: 105%;
+}
+
+.box {
+	border: 4px solid #000;
+	margin: 8px;
+	padding: 5px;
+}
+
+.roboto {
+	font-family: Roboto, Arial, sans-serif;
+}
+
+nav h2 {
+	margin: 8px;
+	padding: 0;
+	text-decoration: underline;
+	text-align: center;
+}
+
+nav hr {
+	color: #000;
+	background-color: #000;
+	height: 4px;
+	border-style: none;
+	margin: 4px -5px;
+}
+
+.instruction-list  {
+	counter-reset: list;
+}
+
+.instruction-list  > li {
+	list-style: none;
+	margin-bottom: 6px;
+}
+
+.instruction-list > li:before {
+	content: counter(list) ") ";
+	counter-increment: list;
+}
+
+#player-queue {
+	list-style: none;
+	display: inline-block;
+	padding-left: 4px;
+	margin-top: 0px;
+}
