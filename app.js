@@ -1,7 +1,7 @@
 // to run: "set DEBUG=WCYK:* & set PORT=4000 & supervisor ./bin/www"
 
 //
-// Some initialization stuff:
+// Some initialization stuff. MUST come before requires:
 //
 global.websocketURL = "ws://localhost";
 global.websocketPort = 40010;
@@ -11,13 +11,20 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var index = require('./routes/index');
+var cookie = require('cookie-parser');
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookie());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views/'));
 app.set('view engine', 'pug');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', require('./routes/signup'));
 app.use('/', index);
 
 

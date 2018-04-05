@@ -1,0 +1,17 @@
+extends auth-header
+
+block body
+	div.launch
+		div.toss-button Toss!
+	div#iframe-host
+	div.launcher
+		div.container
+			h2 Select your shot
+			canvas(id='canvas-shot-maker', width='550', height='280', style='margin-bottom: 10px;')
+			table(style='width: 100%;')
+				tbody
+					tr
+						td Angle
+						td
+							div.toss-button Toss!
+						td Speed

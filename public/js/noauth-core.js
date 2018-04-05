@@ -1,6 +1,6 @@
 var currentQueue = [];
 
-window.onload = function () {
+window.addEventListener("load", function () {
 	var metas = document.getElementsByTagName('meta');
 
 	var url = "";
@@ -17,7 +17,7 @@ window.onload = function () {
 
 	var ws;
 
-	setupWebsocket();
+	setupWebsocket(url);
 
 	// let's launch the shot every 1.5 seconds:
 	setInterval(function () {
@@ -35,7 +35,7 @@ window.onload = function () {
 
 
 	$("#iframe-host").html('<iframe allowFullScreen="allowFullScreen" src="' + youtube + '?loop=1&autoplay=1&rel=0&showinfo=0&controls=0&autohide=1" width="560" height="315" allowtransparency="true" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" ></iframe>');
-};
+});
 
 function handlePlayerQueue(item) {
 	currentQueue.unshift(item);
@@ -53,7 +53,7 @@ function rebuildPlayerQueue() {
 	$("#player-queue").html(html);
 }
 
-function setupWebsocket() {
+function setupWebsocket(url) {
 	ws = new WebSocket(url);
 
 	ws.onopen = function () {

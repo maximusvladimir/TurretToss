@@ -1,0 +1,20 @@
+html
+	head
+		title Turret Toss - Home
+		script(src='../../js/noauth-core.js')
+		script(src='../../js/auth-core.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js')
+		link(rel='stylesheet', href='../../css/noauth-core.css')
+		link(rel='stylesheet', href='../../css/auth-core.css')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Josefin+Sans')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto')
+		meta(name='data-websocket-url', content=wsinfo)
+		meta(name='data-youtube-url', content=currentStreamUrl)
+	body
+		header
+			span Turret Toss - Welcome, !{user}
+			span
+				a(href='./signout') Sign Out
+		include ./nav-core.pug
+		div.wrapper
+			block body
