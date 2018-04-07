@@ -92,7 +92,7 @@ router.get('/', function (req, res, next) {
 	var defaultObject = {
 		path: '/',
 		wsinfo: global.websocketURL + ":" + global.websocketPort,
-		currentStreamUrl: 'https://www.youtube.com/embed/VFcSr5s2ovk',
+		currentStreamUrl: 'https://www.youtube.com/embed/LtYaGZyKtxA',//VFcSr5s2ovk
 		leaderboard: leaderboard
 	};
 
