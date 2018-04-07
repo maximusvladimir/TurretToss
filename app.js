@@ -3,7 +3,7 @@
 //
 // Some initialization stuff. MUST come before requires:
 //
-global.websocketURL = "ws://34.210.98.26";
+global.websocketURL = "ws://34.215.198.119";
 global.websocketPort = 3000;
 if (process.env.DEBUG == "WCYK:* ") {
 	global.websocketURL = "ws://localhost";
