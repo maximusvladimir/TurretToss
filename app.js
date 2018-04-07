@@ -3,8 +3,12 @@
 //
 // Some initialization stuff. MUST come before requires:
 //
-global.websocketURL = "ws://localhost";
-global.websocketPort = 40010;
+global.websocketURL = "ws://34.210.98.26";
+global.websocketPort = 25;
+if (process.env.DEBUG == "WCYK:* ") {
+	global.websocketURL = "ws://localhost";
+	global.websocketPort = 40010;
+}
 
 
 var express = require('express');
