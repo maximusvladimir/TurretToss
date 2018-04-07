@@ -43,7 +43,7 @@ window.addEventListener("load", function () {
 	function recomputeIframeBounds() {
 		var w = $(window).width() - 300;
 		var h = $(window).height() - 30;
-		
+		console.log("resize test." + w + ", " + h);
 		var targetW = h * 1.7875;
 		var targetH = w / 1.7875;
 		if (w > targetW) {
