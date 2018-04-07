@@ -34,7 +34,24 @@ window.addEventListener("load", function () {
 	}, 3000);
 
 
-	$("#iframe-host").html('<iframe allowFullScreen="allowFullScreen" src="' + youtube + '?loop=1&autoplay=1&rel=0&showinfo=0&controls=0&autohide=1" width="560" height="315" allowtransparency="true" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" ></iframe>');
+	//$("#iframe-host").html('<iframe allowFullScreen="allowFullScreen" src="' + youtube + '?autoplay=1&rel=0&showinfo=0&controls=0&autohide=1" width="560" height="315" allowtransparency="true"  frameborder="0" ></iframe>');//style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" ></iframe>');
+	$("#youtube-iframe").attr("src", youtube + '?controls=0&autohide=1');
+	$(window).resize(function() {
+		recomputeIframeBounds();
+	});
+	recomputeIframeBounds();
+	function recomputeIframeBounds() {
+		var w = $(window).width() - 300;
+		var h = $(window).height() - 30;
+		
+		var targetW = h * 1.7875;
+		var targetH = w / 1.7875;
+		if (w > targetW) {
+			$("#youtube-iframe").attr("width", targetW).attr("height", h);
+		} else {
+			$("#youtube-iframe").attr("width", w).attr("height", targetH);
+		}
+	}
 	
 	
 	$(".tab").click(function() {
