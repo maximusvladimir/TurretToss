@@ -88,7 +88,36 @@ router.post('/api/enqueue', function (req, res, next) {
 });
 
 router.get('/api/poll', function (req, res, next) {
-	res.send(db.pollQueueTable());
+	var currentUp = db.pollQueueTable();
+	res.send(currentUp);
+	if (global.lastGoodWebSocket !== "undefined") {
+		try {
+			global.lastGoodWebSocket.send(JSON.stringify({
+				kind: "progression",
+				data: currentUp
+			}));
+		} catch (e) {}
+	}
+});
+
+router.post('/api/complete', function (req, res, next) {
+	var username = req.body.username.toString();
+	var hit = req.body.hit;
+	if (typeof username !== "string" || typeof hit !== "boolean") {
+		res.send({
+			status: 'bad request. not in required format.'
+		});
+	} else {
+		// TODO: add the username and hit to the score manager.
+		if (global.lastGoodWebSocket !== "undefined") {
+			try {
+				global.lastGoodWebSocket.send(JSON.stringify({
+					kind: "progression",
+					data: null
+				}));
+			} catch (e) {}
+		}
+	}
 });
 
 module.exports = router;

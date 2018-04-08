@@ -54,7 +54,7 @@ module.exports = {
 	},
 	addToQueue: function(username, speed, angle) {
 		username = username.toLowerCase();
-		global.queueTable.unshift({
+		global.queueTable.push({
 			username: username,
 			speed: speed,
 			angle: angle,

@@ -33,9 +33,9 @@ window.addEventListener("load", function () {
 		c.stroke();
 
 		var basketx = maker.width * 0.75;
-		var baskety = maker.height * 0.5;
-		var basketw = maker.width * 0.20;
-		var basketh = maker.height * 0.4;
+		var baskety = maker.height * 0.6;
+		var basketw = maker.width * 0.12;
+		var basketh = maker.height * 0.35;
 		c.beginPath();
 		c.moveTo(basketx, baskety);
 		c.lineTo(basketx + basketw, baskety);
@@ -96,13 +96,34 @@ window.addEventListener("load", function () {
 	});
 
 	$(".launcher .container .toss-button").click(function () {
-		ajaxRequest('POST', '../api/enqueue', function (data) {
-			alert(data.message);
-			$(".launcher").fadeOut(200);
-		}, null, {
-			speed: parseInt($("#speed").val()),
-			angle: parseInt($("#angle").val())
-		});
+		var speedVal = parseInt($("#speed").val());
+		var angleVal = parseInt($("#angle").val());
+		var badAngle = false, badSpeed = false;
+		if (angleVal > 45 || angleVal < 0) {
+			badAngle = true;
+		}
+		if (speedVal > 150 || speedVal < 30) {
+			badSpeed = true;
+		}
+		if (!badAngle && !badSpeed) {
+			ajaxRequest('POST', '../api/enqueue', function (data) {
+				alert(data.message);
+				$(".launcher").fadeOut(200);
+			}, null, {
+				speed: speedVal,
+				angle: angleVal
+			});
+		} else {
+			var mesage = "";
+			if (badAngle && !badSpeed) {
+				mesage = "Your angle is not within 0 - 45 degrees!";
+			} else if (badAngle && badSpeed) {
+				mesage = "Your angle is not within 0 - 45 degrees and your speed is not within 30 - 150 units!";
+			} else if (!badAngle && badSpeed) {
+				mesage = "Your speed is not within 30 - 150 units!";
+			}
+			alert("Failed to launch your shot!\n" + mesage);
+		}
 	});
 
 	$("#toss").click(function () {

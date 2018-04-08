@@ -19,27 +19,13 @@ window.addEventListener("load", function () {
 
 	setupWebsocket(url);
 
-	// let's launch the shot every 1.5 seconds:
-	setInterval(function () {
-		var current = $("#current-player");
-
-		var neuCurrent = "<span style='font-style:italic;'>No one is playing</span>";
-		if (currentQueue.length !== 0) {
-			var altCurrent = currentQueue.pop();
-			neuCurrent = "<span style='color: " + altCurrent.color + "'>" + altCurrent.name + "</span>";
-		}
-		current.html(neuCurrent);
-		rebuildPlayerQueue();
-
-	}, 3000);
-
-
 	//$("#iframe-host").html('<iframe allowFullScreen="allowFullScreen" src="' + youtube + '?autoplay=1&rel=0&showinfo=0&controls=0&autohide=1" width="560" height="315" allowtransparency="true"  frameborder="0" ></iframe>');//style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" ></iframe>');
 	$("#youtube-iframe").attr("src", youtube + '?controls=0&autohide=1');
-	$(window).resize(function() {
+	$(window).resize(function () {
 		recomputeIframeBounds();
 	});
 	recomputeIframeBounds();
+
 	function recomputeIframeBounds() {
 		var w = $(window).width() - 300;
 		var h = $(window).height() - 30;
@@ -52,9 +38,9 @@ window.addEventListener("load", function () {
 			$("#youtube-iframe").attr("width", w).attr("height", targetH);
 		}
 	}
-	
-	
-	$(".tab").click(function() {
+
+
+	$(".tab").click(function () {
 		$(".tab").removeClass("tab-active");
 		$(this).addClass("tab-active");
 		var p = $(this).index();
@@ -90,6 +76,17 @@ function setupWebsocket(url) {
 		var data = JSON.parse(ev.data);
 		if (data.kind === "queue") {
 			handlePlayerQueue(data.data);
+		} else if (data.kind === "progression") {
+			var current = $("#current-player");
+			var neuCurrent = "<span style='font-style:italic;'>No one is playing</span>";
+			if (data.data != null) {
+				if (currentQueue.length !== 0) {
+					var altCurrent = currentQueue.pop();
+					neuCurrent = "<span style='color: " + altCurrent.color + "'>" + altCurrent.name + "</span>";
+					rebuildPlayerQueue();
+				}
+			}
+			current.html(neuCurrent);
 		}
 	};
 
