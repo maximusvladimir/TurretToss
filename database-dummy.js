@@ -1,5 +1,6 @@
 global.userStore = [];
 global.authTokens = [];
+global.queueTable = [];
 
 var fs = require('fs');
 
@@ -17,6 +18,7 @@ function loadDatabase() {
 		var container = JSON.parse(file);
 		global.userStore = container.userStore;
 		global.authTokens = container.authTokens;
+		global.queueTable = container.queueTable;
 	}
 }
 
@@ -27,7 +29,8 @@ function flushDatabase() {
 
 	fs.writeFileSync(dbFile, JSON.stringify({
 		userStore: global.userStore,
-		authTokens: global.authTokens
+		authTokens: global.authTokens,
+		queueTable: global.queueTable
 	}));
 }
 loadDatabase();
@@ -48,6 +51,29 @@ module.exports = {
 			color: color
 		});
 		flushDatabase();
+	},
+	addToQueue: function(username, speed, angle) {
+		username = username.toLowerCase();
+		global.queueTable.unshift({
+			username: username,
+			speed: speed,
+			angle: angle,
+			sent: false
+		});
+		flushDatabase();
+	},
+	pollQueueTable: function() {
+		var item = null;
+		for (var i = 0; i < global.queueTable.length; i++) {
+			var row = global.queueTable[i];
+			if (!row.sent) {
+				item = row;
+				row.sent = true;
+				break;
+			}
+		}
+		flushDatabase();
+		return item;
 	},
 	passwordCheck: function (username, password) {
 		// TODO: password salting & hashing.

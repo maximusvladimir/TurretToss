@@ -3,6 +3,50 @@ var router = express.Router();
 var wslib = require('../websocket.js');
 var db = require('../database-dummy.js');
 
+wslib.setupWebsocket(function (ws) {
+	global.lastGoodWebSocket = ws;
+	// todo: replace names with reading from PostgreSQL.
+	/*var names = [{
+			name: "Chad",
+			color: "#ffc9a2"
+		},
+		{
+			name: "user_6",
+			color: "#b5d6a5"
+		},
+		{
+			name: "xXHelloXx",
+			color: "#efc73c"
+		},
+		{
+			name: "Sally",
+			color: "#d8abc1"
+		},
+		{
+			name: "ttu-supersenior",
+			color: "#e69b9b"
+		},
+		{
+			name: "Dog",
+			color: "#adcbd2"
+		}];
+
+	setInterval(function () {
+		if (Math.random() < 0.4) {
+			// 40% chance every 1 second we send a new name:
+			var pick = names[parseInt(Math.random() * names.length)];
+			try {
+				ws.send(JSON.stringify({
+					kind: "queue",
+					data: pick
+				}));
+				// TODO: replace!:
+				global.lastGoodWebSocket = ws;
+			} catch (e) {}
+		}
+	}, 1000);*/
+});
+
 router.post('/api/enqueue', function (req, res, next) {
 	var authed = false;
 	var auth = req.cookies["auth"];
@@ -13,16 +57,19 @@ router.post('/api/enqueue', function (req, res, next) {
 			var speed = req.body.speed;
 			var angle = req.body.angle;
 			// TODO
-			console.log("TODO: the following should be added to the queue. Speed: " + speed + ". Angle: " + angle);
+			//console.log("TODO: the following should be added to the queue. Speed: " + speed + ". Angle: " + angle);
+			db.addToQueue(target.username, speed, angle);
 			// TODO: replace this:
 			if (global.lastGoodWebSocket !== "undefined") {
-				global.lastGoodWebSocket.send(JSON.stringify({
-					kind: "queue",
-					data: {
-						name: target.username,
-						color: target.color
-					}
-				}));
+				try {
+					global.lastGoodWebSocket.send(JSON.stringify({
+						kind: "queue",
+						data: {
+							name: target.username,
+							color: target.color
+						}
+					}));
+				} catch (e) {}
 			}
 			res.send({
 				okay: true,
@@ -38,6 +85,10 @@ router.post('/api/enqueue', function (req, res, next) {
 			message: 'bad request: no auth.'
 		});
 	}
+});
+
+router.get('/api/poll', function (req, res, next) {
+	res.send(db.pollQueueTable());
 });
 
 module.exports = router;
