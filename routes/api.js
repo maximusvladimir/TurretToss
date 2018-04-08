@@ -103,7 +103,7 @@ router.get('/api/poll', function (req, res, next) {
 router.post('/api/complete', function (req, res, next) {
 	var username = req.body.username.toString();
 	var hit = req.body.hit;
-	if (typeof username !== "string" || typeof hit !== "boolean") {
+	if (typeof hit !== "boolean") {
 		res.send({
 			status: 'bad request. not in required format.'
 		});
