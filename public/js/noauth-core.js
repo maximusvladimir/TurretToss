@@ -87,6 +87,16 @@ function setupWebsocket(url) {
 				}
 			}
 			current.html(neuCurrent);
+		} else if (data.kind === "shot") {
+			//{ user: currentUser, made: hit }
+			var i = data.data;
+			if ($.cookie("user") == i.user) {
+				if (i.made) {
+					alert("Congrats! You made your shot!");
+				} else {
+					alert("You didn't make your shot :(");
+				}
+			}
 		}
 	};
 

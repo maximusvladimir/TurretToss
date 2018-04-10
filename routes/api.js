@@ -3,6 +3,8 @@ var router = express.Router();
 var wslib = require('../websocket.js');
 var db = require('../database-dummy.js');
 
+var currentUser = "";
+
 wslib.setupWebsocket(function (ws) {
 	global.lastGoodWebSocket = ws;
 	// todo: replace names with reading from PostgreSQL.
@@ -89,6 +91,7 @@ router.post('/api/enqueue', function (req, res, next) {
 
 router.get('/api/poll', function (req, res, next) {
 	var currentUp = db.pollQueueTable();
+	currentUser = currentUp.username;
 	res.send(currentUp);
 	if (global.lastGoodWebSocket !== "undefined") {
 		try {
@@ -114,6 +117,12 @@ router.post('/api/complete', function (req, res, next) {
 				global.lastGoodWebSocket.send(JSON.stringify({
 					kind: "progression",
 					data: null
+				}));
+			} catch (e) {}
+			try {
+				global.lastGoodWebSocket.send(JSON.stringify({
+					kind: "shot",
+					data: { user: currentUser, made: hit }
 				}));
 			} catch (e) {}
 		}

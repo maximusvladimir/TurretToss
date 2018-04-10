@@ -14,6 +14,7 @@ router.post('/signup', function (req, res, next) {
 		db.createUser(req.body.username, req.body.email, req.body.password, req.body.color);
 		var token = db.createAuthToken(req.body.username);
 		res.cookie('auth', token, { maxAge: 31540000000 });
+		res.cookie('user', req.body.username.toLowerCase(), { maxAge: 31540000000 });
 	}
 	
     res.redirect('/');

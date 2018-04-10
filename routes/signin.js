@@ -14,6 +14,7 @@ router.post('/signin', function (req, res, next) {
 		if (db.passwordCheck(req.body.username, req.body.password)) {
 			var token = db.createAuthToken(req.body.username);
 			res.cookie('auth', token, { maxAge: 31540000000 });
+			res.cookie('user', req.body.username.toLowerCase(), { maxAge: 31540000000 });
 		}
 	}
 	
