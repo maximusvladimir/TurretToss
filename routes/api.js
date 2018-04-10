@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var wslib = require('../websocket.js');
+wslib.setupWebsocket(function() {
+	
+});
 var db = require('../database-dummy.js');
 
 var currentUser = "";

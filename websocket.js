@@ -20,7 +20,10 @@ module.exports = {
 	send: function(data) {
 		for (var i = 0; i < conn.length; i++) {
 			try {
+				console.log("sending...");
 				conn[i].send(data);
+				console.log("Sent:");
+				console.log(data);
 			} catch (e) {
 				console.error(e);
 			}
