@@ -101,7 +101,7 @@ router.get('/api/poll', function (req, res, next) {
 });
 
 router.post('/api/complete', function (req, res, next) {
-	var username = req.body.username.toString();
+	console.log("complete called.");
 	var hit = req.body.hit;
 	if (typeof hit !== "boolean") {
 		res.send({
