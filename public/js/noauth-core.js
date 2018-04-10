@@ -103,7 +103,7 @@ function setupWebsocket(url) {
 	ws.onclose = function () {
 		// try again in a second:
 		setTimeout(function () {
-			setupWebsocket();
+			setupWebsocket(url);
 		}, 1000);
 	};
 }
