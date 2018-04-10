@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var db = require('../database-dummy.js');
 
+global.currentStream = 'z7FCy3fqU7E';
+
 router.get('/', function (req, res, next) {
 	// todo: replace this JSON object with reading from PostgreSQL.
 	var leaderboard = {
@@ -91,7 +93,7 @@ router.get('/', function (req, res, next) {
 	var defaultObject = {
 		path: '/',
 		wsinfo: global.websocketURL + ":" + global.websocketPort,
-		currentStreamUrl: 'https://www.youtube.com/embed/z7FCy3fqU7E',//VFcSr5s2ovk
+		currentStreamUrl: 'https://www.youtube.com/embed/' + global.currentStream,//z7FCy3fqU7E',//VFcSr5s2ovk
 		leaderboard: leaderboard
 	};
 

@@ -120,4 +120,11 @@ router.post('/api/complete', function (req, res, next) {
 	}
 });
 
+router.get('/api/stream/:id', function (req, res, next) {
+	global.currentStream = req.params.id;
+	res.send({
+		status: 'stream set!'
+	});
+});
+
 module.exports = router;
