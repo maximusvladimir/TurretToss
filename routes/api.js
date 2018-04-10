@@ -6,7 +6,7 @@ wslib.setupWebsocket(function() {
 });
 var db = require('../database-dummy.js');
 
-var currentUser = "";
+var currentUser = null;
 
 router.post('/api/enqueue', function (req, res, next) {
 	var authed = false;
@@ -47,6 +47,7 @@ router.post('/api/enqueue', function (req, res, next) {
 router.get('/api/poll', function (req, res, next) {
 	var currentUp = db.pollQueueTable();
 	if (currentUp == null) {
+		currentUser = null;
 		res.send(null);
 	} else {
 		currentUser = currentUp.username;
@@ -67,6 +68,7 @@ router.post('/api/complete', function (req, res, next) {
 	} else {
 		// TODO: add the username and hit to the score manager.
 		if (global.lastGoodWebSocket !== "undefined") {
+			if (currentUser != null) {
 			wslib.send(JSON.stringify({
 				kind: "progression",
 				data: null
@@ -78,6 +80,7 @@ router.post('/api/complete', function (req, res, next) {
 					made: hit
 				}
 			}));
+			}
 		}
 		res.send({
 			status: 'complete.'
