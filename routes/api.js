@@ -117,6 +117,9 @@ router.post('/api/complete', function (req, res, next) {
 				}));
 			} catch (e) {}
 		}
+		res.send({
+			status: 'complete.'
+		});
 	}
 });
 
