@@ -1,5 +1,8 @@
 nav
 	div.box
+		h2 Currently Online
+		span#people 0 people are watching
+	div.box
 		h2 Player Queue
 		hr
 		span Currently Playing: 
@@ -21,23 +24,20 @@ nav
 					ul
 						each val in leaderboard.daily
 							li
-								span= val.place + ": "
-								span= val.name
-								span= " (" + val.points + " points)"
+								span= val.username
+								span= " (" + val.shot + " points)"
 				div.tab-block
 					ul
 						each val in leaderboard.monthly
 							li
-								span= val.place + ": "
-								span= val.name
-								span= " (" + val.points + " points)"
+								span= val.username
+								span= " (" + val.shot + " points)"
 				div.tab-block
 					ul
 						each val in leaderboard.allTime
 							li
-								span= val.place + ": "
-								span= val.name
-								span= " (" + val.points + " points)"
+								span= val.username
+								span= " (" + val.shot + " points)"
 	div.box
 		h2 Instructions
 		hr

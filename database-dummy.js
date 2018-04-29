@@ -1,8 +1,10 @@
 global.userStore = [];
 global.authTokens = [];
 global.queueTable = [];
+global.shotTable = [];
 
 var fs = require('fs');
+var moment = require('moment');
 
 // This is a dummy holder module for where the database connection will go.
 
@@ -19,6 +21,7 @@ function loadDatabase() {
 		global.userStore = container.userStore;
 		global.authTokens = container.authTokens;
 		global.queueTable = container.queueTable;
+		global.shotTable = container.shotTable;
 	}
 }
 
@@ -30,7 +33,8 @@ function flushDatabase() {
 	fs.writeFileSync(dbFile, JSON.stringify({
 		userStore: global.userStore,
 		authTokens: global.authTokens,
-		queueTable: global.queueTable
+		queueTable: global.queueTable,
+		shotTable: global.shotTable
 	}));
 }
 loadDatabase();
@@ -74,6 +78,72 @@ module.exports = {
 		}
 		flushDatabase();
 		return item;
+	},
+	addShot: function(username, wasHit) {
+		global.shotTable.push({
+			dt: new Date().getTime(),
+			username: username,
+			hit: wasHit
+		});
+		
+		flushDatabase();
+	},
+	getLeaderboard: function() {
+		var result = {daily: [], monthly: [], allTime: []};
+		function applyUpdate(prop, username) {
+			var found = false;
+			for (var i = 0; i < prop.length; i++) {
+				if (prop[i].username === username) {
+					prop[i].shot++;
+					return;
+				}
+			}
+			prop.push({
+				username: username,
+				shot: 1
+			});
+		}
+		var dayStart = moment().startOf('day');
+		var yearStart = moment().startOf('year');
+		var monthStart = moment().add(-30, 'day');
+		var now = moment();
+		for (var i = 0; i < global.shotTable.length; i++) {
+			var shot = global.shotTable[i];
+			if (shot.hit) {
+				if (shot.dt > dayStart) {
+					applyUpdate(result.daily, shot.username);
+				}
+				if (shot.dt > monthStart) {
+					applyUpdate(result.monthly, shot.username);
+				}
+				applyUpdate(result.allTime, shot.username);
+			}
+		}
+		
+		var swap = {daily: [], monthly: [], allTime: []};
+		result.daily.sort(function(a, b) {
+			return b.shot - a.shot;
+		});
+		result.monthly.sort(function(a, b) {
+			return b.shot - a.shot;
+		});
+		result.allTime.sort(function(a, b) {
+			return b.shot - a.shot;
+		});
+		
+		for (var i = 0; i < 5; i++) {
+			if (i < result.daily.length) {
+				swap.daily.push(result.daily[i]);
+			}
+			if (i < result.daily.length) {
+				swap.monthly.push(result.monthly[i]);
+			}
+			if (i < result.daily.length) {
+				swap.allTime.push(result.allTime[i]);
+			}
+		}
+		
+		return swap;
 	},
 	passwordCheck: function (username, password) {
 		// TODO: password salting & hashing.

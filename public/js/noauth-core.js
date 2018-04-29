@@ -20,7 +20,7 @@ window.addEventListener("load", function () {
 	setupWebsocket(url);
 
 	//$("#iframe-host").html('<iframe allowFullScreen="allowFullScreen" src="' + youtube + '?autoplay=1&rel=0&showinfo=0&controls=0&autohide=1" width="560" height="315" allowtransparency="true"  frameborder="0" ></iframe>');//style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" ></iframe>');
-	$("#youtube-iframe").attr("src", youtube + '?controls=0&autohide=1');
+	$("#youtube-iframe").attr("src", youtube + '?controls=0&autohide=1&autoplay=1');
 	$(window).resize(function () {
 		recomputeIframeBounds();
 	});
@@ -97,6 +97,8 @@ function setupWebsocket(url) {
 					alert("You didn't make your shot :(");
 				}
 			}
+		} else if (data.kind === "pc") {
+			$("#people").empty().html(data.data + " people are watching");
 		}
 	};
 

@@ -36,6 +36,13 @@ app.use('/', require('./routes/api'));
 app.use('/', require('./routes/signout'));
 app.use('/', index);
 
+/*
+db.addShot('max', true);
+db.addShot('max', false);
+db.addShot('max', true);
+db.addShot('will', true);
+db.addShot('bart', true);*/
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	var err = new Error('Not Found');

@@ -127,10 +127,10 @@ nav hr {
 .tab-active {
 	background-color: #ddd;
 }
-
+/*
 .tab-block ul {
 	list-style: none;
-}
+}*/
 
 .tab-block {
 	display: none;
