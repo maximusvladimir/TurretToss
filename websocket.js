@@ -10,7 +10,7 @@ function snd(data) {
 			console.log("Sent:");
 			console.log(data);
 		} catch (e) {
-			console.error(e);
+			//console.error(e);
 		}
 	}
 }
