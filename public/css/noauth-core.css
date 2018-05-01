@@ -149,7 +149,13 @@ nav hr {
 #chat {
 	width: 100%;
     height: 200px;
-	resize: none;
+	min-height: 200px;
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+#chat span {
+	margin: 0;
 }
 
 @media only screen and (max-height: 910px) {
