@@ -43,6 +43,7 @@ module.exports = {
 						if (user != null) {
 							snd(JSON.stringify({
 								kind: 'chat',
+								color: user.color,
 								data: '[' + moment().format('hh:mm:ss') + '] ' + user.username + ": " + res.msg
 							}));
 						}
