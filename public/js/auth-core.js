@@ -131,6 +131,11 @@ window.addEventListener("load", function () {
 		$("#angle").val("");
 		$("#speed").val("");
 	});
+	
+	setTimeout(function() {
+		$("#chat-msg").css("display", "inline-block");
+		$("#chat-send").css("display", "inline-block");
+	}, 500);
 });
 
 function ajaxRequest(method, url, success, fail, postData) {

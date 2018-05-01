@@ -1,6 +1,7 @@
 nav
 	div.box
 		h2 Currently Online
+		hr
 		span#people 0 people are watching
 	div.box
 		h2 Player Queue
@@ -45,3 +46,9 @@ nav
 			li Use the arrow keys on the keyboard to adjust where the webcam is facing.
 			li Select the angle and speed the launcher will shoot at.
 			li Toss!
+	div.box
+		h2 Chat
+		hr
+		textarea#chat(readonly='readonly')
+		input#chat-msg
+		button#chat-send Send

@@ -3,6 +3,9 @@ var currentQueue = [];
 window.addEventListener("load", function () {
 	var metas = document.getElementsByTagName('meta');
 
+	$("#chat-msg").css("display", "none");
+	$("#chat-send").css("display", "none");
+	
 	var url = "";
 	var youtube = "";
 	for (var i = 0; i < metas.length; i++) {
@@ -47,6 +50,18 @@ window.addEventListener("load", function () {
 		$(".tab-block").removeClass("active");
 		$($(".tab-block-parent").children()[$(this).index()]).addClass("active");
 	});
+	
+	$("#chat-send").click(function() {
+		var msg = $("#chat-msg").val();
+		if (lastWebSocket != null) {
+			$("#chat-msg").val("");
+			lastWebSocket.send(JSON.stringify({
+				kind: 'chat',
+				cookie: $.cookie("auth"),
+				msg: msg
+			}))
+		}
+	});
 });
 
 function handlePlayerQueue(item) {
@@ -69,11 +84,13 @@ function setupWebsocket(url) {
 	ws = new WebSocket(url);
 
 	ws.onopen = function () {
-		ws.send('howdy y\'all!');
+		lastWebSocket = ws;
+		//ws.send('howdy y\'all!');
 	};
 
 	ws.onmessage = function (ev) {
 		var data = JSON.parse(ev.data);
+		console.log(data);
 		if (data.kind === "queue") {
 			handlePlayerQueue(data.data);
 		} else if (data.kind === "progression") {
@@ -99,6 +116,9 @@ function setupWebsocket(url) {
 			}
 		} else if (data.kind === "pc") {
 			$("#people").empty().html(data.data + " people are watching");
+		} else if (data.kind === "chat") {
+			//console.log(data);
+			$("#chat").append(data.data + "\n");
 		}
 	};
 
@@ -109,3 +129,5 @@ function setupWebsocket(url) {
 		}, 1000);
 	};
 }
+
+var lastWebSocket = null;
