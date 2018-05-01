@@ -90,7 +90,6 @@ function setupWebsocket(url) {
 
 	ws.onmessage = function (ev) {
 		var data = JSON.parse(ev.data);
-		console.log(data);
 		if (data.kind === "queue") {
 			handlePlayerQueue(data.data);
 		} else if (data.kind === "progression") {
@@ -118,7 +117,7 @@ function setupWebsocket(url) {
 			$("#people").empty().html(data.data + " people are watching");
 		} else if (data.kind === "chat") {
 			//console.log(data);
-			$("#chat").append(data.data + "\n");
+			$("#chat").empty().text($("#chat").text() + data.data + "\n");
 		}
 	};
 
@@ -126,7 +125,7 @@ function setupWebsocket(url) {
 		// try again in a second:
 		setTimeout(function () {
 			setupWebsocket(url);
-		}, 1000);
+		}, 2000);
 	};
 }
 

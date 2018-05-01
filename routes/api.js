@@ -63,7 +63,7 @@ router.post('/api/complete', function (req, res, next) {
 	var hit = req.body.hit;
 	if (typeof hit !== "boolean") {
 		res.send({
-			status: 'bad request. not in required format.'
+			status: 'bad request. not in required format. You gave me: ' + req.body + '. With type: ' + (typeof hit) + '.'
 		});
 	} else {
 		// TODO: add the username and hit to the score manager.
