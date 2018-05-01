@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var wslib = require('../websocket.js');
-wslib.setupWebsocket(function() {
-	
+wslib.setupWebsocket(function () {
+
 });
 var db = require('../database-dummy.js');
 
@@ -69,17 +69,23 @@ router.post('/api/complete', function (req, res, next) {
 		// TODO: add the username and hit to the score manager.
 		if (global.lastGoodWebSocket !== "undefined") {
 			if (currentUser != null) {
-			wslib.send(JSON.stringify({
-				kind: "progression",
-				data: null
-			}));
-			wslib.send(JSON.stringify({
-				kind: "shot",
-				data: {
-					user: currentUser,
-					made: hit
-				}
-			}));
+				wslib.send(JSON.stringify({
+					kind: "progression",
+					data: null
+				}));
+				wslib.send(JSON.stringify({
+					kind: "chat",
+					color: '#000',
+					data: '[' + moment().format('hh:mm:ss') + '] server: ' + (hit ? 'Awesome! ' + currentUser + ' made their shot!' : 'Awwwww. ' + currentUser + ' missed.')
+				}));
+				db.addShot(currentQueue, hit);
+				/*wslib.send(JSON.stringify({
+					kind: "shot",
+					data: {
+						user: currentUser,
+						made: hit
+					}
+				}));*/
 			}
 		}
 		res.send({
