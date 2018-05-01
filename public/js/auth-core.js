@@ -102,7 +102,7 @@ window.addEventListener("load", function () {
 		if (angleVal > 45 || angleVal < 0) {
 			badAngle = true;
 		}
-		if (speedVal > 150 || speedVal < 30) {
+		if (speedVal > 255 || speedVal < 30) {
 			badSpeed = true;
 		}
 		if (!badAngle && !badSpeed) {
@@ -118,9 +118,9 @@ window.addEventListener("load", function () {
 			if (badAngle && !badSpeed) {
 				mesage = "Your angle is not within 0 - 45 degrees!";
 			} else if (badAngle && badSpeed) {
-				mesage = "Your angle is not within 0 - 45 degrees and your speed is not within 30 - 150 units!";
+				mesage = "Your angle is not within 0 - 45 degrees and your speed is not within 30 - 255 units!";
 			} else if (!badAngle && badSpeed) {
-				mesage = "Your speed is not within 30 - 150 units!";
+				mesage = "Your speed is not within 30 - 255 units!";
 			}
 			alert("Failed to launch your shot!\n" + mesage);
 		}
