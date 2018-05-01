@@ -117,7 +117,8 @@ function setupWebsocket(url) {
 			$("#people").empty().html(data.data + " people are watching");
 		} else if (data.kind === "chat") {
 			//console.log(data);
-			$("#chat").empty().text($("#chat").text() + data.data + "\n");
+			var dd = $("#chat").text() + data.data + "\n";
+			$("#chat").empty().text(dd);
 		}
 	};
 
