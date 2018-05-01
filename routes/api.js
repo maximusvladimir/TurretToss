@@ -79,7 +79,7 @@ router.post('/api/complete', function (req, res, next) {
 					color: '#000',
 					data: '[' + moment().format('hh:mm:ss') + '] server: ' + (hit ? 'Awesome! ' + currentUser + ' made their shot!' : 'Awwwww. ' + currentUser + ' missed.')
 				}));
-				db.addShot(currentQueue, hit);
+				db.addShot(currentUser, hit);
 				/*wslib.send(JSON.stringify({
 					kind: "shot",
 					data: {
